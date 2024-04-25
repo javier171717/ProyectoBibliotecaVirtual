@@ -46,7 +46,7 @@ const App = () => {
   return (
     <div>
       <Navbar /> 
-      <ProductGrid products={productsToPreLoad} /> {/* Pasa los productos como prop a ProductGrid */}
+      <ProductGrid products={productsToPreLoad} /> 
     </div>
   );
 };
