@@ -1,5 +1,3 @@
-
-
 import styled from 'styled-components';
 
 const ProductCardContainer = styled.div`
@@ -20,12 +18,30 @@ const ProductName = styled.h3`
   margin-top: 8px;
 `;
 
+const ProductDescription = styled.p`
+  color: #666;
+  font-size: 0.9rem;
+`;
+
+const ProductPrice = styled.div`
+  color: #333;
+  font-weight: bold;
+  margin-top: 8px;
+`;
+
+const ProductQuantity = styled.div`
+  color: #333;
+  margin-top: 8px;
+`;
+
 const ProductCard = ({ product }) => {
   return (
     <ProductCardContainer>
       <ProductImage src={product.image} alt={product.name} />
       <ProductName>{product.name}</ProductName>
-      {/* Puedes agregar más información del producto aquí */}
+      <ProductDescription>{product.description}</ProductDescription>
+      <ProductPrice>${product.price}</ProductPrice>
+      <ProductQuantity>Cantidad: {product.quantity}</ProductQuantity>
     </ProductCardContainer>
   );
 };
