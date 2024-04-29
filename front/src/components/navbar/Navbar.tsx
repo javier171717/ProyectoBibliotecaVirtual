@@ -1,6 +1,9 @@
 "use client"
 import { useState } from "react";
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars,faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
+
 
 
 const Nav = styled.nav`
@@ -50,13 +53,19 @@ const MobileMenuButton = styled.div`
   }
 `;
 
+
+const CartIcon = styled.div`
+  cursor: pointer;
+  font-size: 2rem;
+`;
+
 const CategoriesMenu = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
   justify-content: center;
   align-items: center;
-  background-color: #8533FF;
+  background-color: #FFC300;
   gap: 20px;
   width: 100%;
   padding: 1rem;
@@ -75,7 +84,6 @@ const Category = styled.a`
   text-decoration: none;
   color: black;
   margin-bottom: 0.5rem;
-
   @media (min-width: 768px) {
     margin-right: 1rem;
     margin-bottom: 0;
@@ -90,13 +98,23 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  
+
+  const handleCartClick = () => {
+    // Aquí puedes implementar la lógica para abrir el carrito de compra o navegar a la página del carrito
+    console.log("Clic en el ícono del carrito");
+  };
+
   return (
     <Nav>
       <LogoContainer>
         <Logo src= "/images/Logo.png" alt="Logo" />
-        <SearchBar type="text" placeholder="Search..." />
-
+        <button>
+          <SearchBar type="text" placeholder="Buscar..." />
+          <FontAwesomeIcon icon={faSearch} />
+        </button>
         <MobileMenuButton onClick={toggleMenu}>
+        <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
           <div />
           <div />
           <div />
@@ -104,11 +122,22 @@ const Navbar = () => {
       </LogoContainer>
 
       <CategoriesMenu isOpen={isMenuOpen}>
-        <Category>Category 1</Category>
-        <Category>Category 2</Category>
-        <Category>Category 3</Category>
+        <Category>SmartPhones</Category>
+        <Category>Laptops</Category>
+        <Category>Tablets</Category>
+        <Category>Headphones</Category>
+        <Category>Cameras</Category>
+        <Category>Printers</Category>
+        <Category>Monitors</Category>
+        <Category>Storage</Category>
+        <Category>Accessories</Category>
         {/* Add more categories as needed */}
       </CategoriesMenu>
+      
+      <CartIcon onClick={handleCartClick}>
+        <FontAwesomeIcon icon={faShoppingCart} />
+      </CartIcon>
+      
     </Nav>
   );
 };
