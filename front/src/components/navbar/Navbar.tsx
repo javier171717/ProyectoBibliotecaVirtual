@@ -1,14 +1,12 @@
 "use client"
+import Link from 'next/link';
 import { useState } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars,faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
-
-
+import { faBars, faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Nav = styled.nav`
   display: flex;
-
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
@@ -16,10 +14,10 @@ const Nav = styled.nav`
   background-color: #3498DB;
 `;
 
-
 const Logo = styled.img`
-  width: 20%; /* Adjust size as needed */
+  width: 50%; /* Adjust size as needed */
   max-width: 100px;
+  cursor: pointer;
 `;
 
 const SearchBar = styled.input`
@@ -53,13 +51,12 @@ const MobileMenuButton = styled.div`
   }
 `;
 
-
 const CartIcon = styled.div`
   cursor: pointer;
   font-size: 2rem;
 `;
 
-const CategoriesMenu = styled.div`
+const CategoriesMenu = styled.div <{ isOpen: boolean }>`
   display: flex;
   flex-direction: column;
   position: relative;
@@ -90,7 +87,6 @@ const Category = styled.a`
   }
 `;
 
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -98,23 +94,22 @@ const Navbar = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  
-
   const handleCartClick = () => {
-    // Aquí puedes implementar la lógica para abrir el carrito de compra o navegar a la página del carrito
     console.log("Clic en el ícono del carrito");
   };
 
   return (
     <Nav>
       <LogoContainer>
-        <Logo src= "/images/Logo.png" alt="Logo" />
+        <Link href="/">
+          <Logo src="/images/Logo.png" alt="Logo" />
+        </Link>
         <button>
           <SearchBar type="text" placeholder="Buscar..." />
           <FontAwesomeIcon icon={faSearch} />
         </button>
         <MobileMenuButton onClick={toggleMenu}>
-        <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
+          <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
           <div />
           <div />
           <div />
@@ -133,11 +128,10 @@ const Navbar = () => {
         <Category>Accessories</Category>
         {/* Add more categories as needed */}
       </CategoriesMenu>
-      
+
       <CartIcon onClick={handleCartClick}>
         <FontAwesomeIcon icon={faShoppingCart} />
       </CartIcon>
-      
     </Nav>
   );
 };
