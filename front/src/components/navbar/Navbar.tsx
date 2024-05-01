@@ -1,91 +1,9 @@
 "use client"
-import Link from 'next/link';
+import Link from "next/link";
 import { useState } from "react";
-import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
-
-const Nav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #3498DB;
-`;
-
-const Logo = styled.img`
-  width: 50%; /* Adjust size as needed */
-  max-width: 100px;
-  cursor: pointer;
-`;
-
-const SearchBar = styled.input`
-  max-width: 400px;
-  flex: 1;
-  margin: 0 1rem;
-  padding: 0.5rem;
-`;
-
-const LogoContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const MobileMenuButton = styled.div`
-  display: none; /* Hide by default on desktop */
-  cursor: pointer;
-
-  @media (max-width: 500px) {
-    display: block; /* Show on mobile */
-  }
-
-  div {
-    width: 25px;
-    height: 3px;
-    background-color: black;
-    margin: 5px;
-  }
-`;
-
-const CartIcon = styled.div`
-  cursor: pointer;
-  font-size: 2rem;
-`;
-
-const CategoriesMenu = styled.div <{ isOpen: boolean }>`
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  background-color: #FFC300;
-  gap: 20px;
-  width: 100%;
-  padding: 1rem;
-  transition: transform 0.3s ease-in-out;
-  transform: ${({ isOpen }) =>
-    isOpen ? "translateY(0)" : "translateY(-1000%)"};
-
-  @media (min-width: 500px) {
-    position: relative;
-    flex-direction: row;
-    transform: translateY(0);
-  }
-`;
-
-const Category = styled.a`
-  text-decoration: none;
-  color: black;
-  margin-bottom: 0.5rem;
-  @media (min-width: 768px) {
-    margin-right: 1rem;
-    margin-bottom: 0;
-  }
-`;
+import Image from "next/image";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,41 +17,42 @@ const Navbar = () => {
   };
 
   return (
-    <Nav>
-      <LogoContainer>
+    <nav className="flex flex-col items-center justify-between px-10 py-4 bg-blue-500">
+      <div className="w-full flex flex-row justify-between items-center">
         <Link href="/">
-          <Logo src="/images/Logo.png" alt="Logo" />
+        <Image src="/images/Logo.png" alt="Logo" width={80} height={80} className="cursor-pointer" />
         </Link>
-        <button>
-          <SearchBar type="text" placeholder="Buscar..." />
+        <button className="flex items-center">
+          <input
+            type="text"
+            placeholder="Buscar..."
+            className="max-w-md flex-1 p-2 mr-4 rounded-md focus:outline-none"
+          />
           <FontAwesomeIcon icon={faSearch} />
         </button>
-        <MobileMenuButton onClick={toggleMenu}>
+        <div className="block md:hidden" onClick={toggleMenu}>
           <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
-          <div />
-          <div />
-          <div />
-        </MobileMenuButton>
-      </LogoContainer>
+        </div>
+      </div>
 
-      <CategoriesMenu isOpen={isMenuOpen}>
-        <Category>SmartPhones</Category>
-        <Category>Laptops</Category>
-        <Category>Tablets</Category>
-        <Category>Headphones</Category>
-        <Category>Cameras</Category>
-        <Category>Printers</Category>
-        <Category>Monitors</Category>
-        <Category>Storage</Category>
-        <Category>Accessories</Category>
-        {/* Add more categories as needed */}
-      </CategoriesMenu>
+      <div className={`flex flex-col md:flex-row justify-center md:justify-end items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? "translate-y-0" : "-translate-y-full"}`}>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">SmartPhones</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Laptops</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Tablets</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Headphones</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Cameras</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Printers</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Monitors</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Storage</a>
+        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Accessories</a>
+      </div>
 
-      <CartIcon onClick={handleCartClick}>
+      <div className="cursor-pointer text-black text-2xl" onClick={handleCartClick}>
         <FontAwesomeIcon icon={faShoppingCart} />
-      </CartIcon>
-    </Nav>
+      </div>
+    </nav>
   );
 };
 
 export default Navbar;
+
