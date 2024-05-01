@@ -28,7 +28,8 @@ const Navbar = () => {
             placeholder="Buscar..."
             className="max-w-md flex-1 p-2 mr-4 rounded-md focus:outline-none"
           />
-          <FontAwesomeIcon icon={faSearch} />
+           <div className="absolute right-0 top-0 mt-2 mr-2 "></div>
+          <FontAwesomeIcon icon={faSearch}   className=" text-gray-400 h-6 w-6"/>
         </button>
         <div className="block md:hidden" onClick={toggleMenu}>
           <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
@@ -36,16 +37,17 @@ const Navbar = () => {
       </div>
 
       <div className={`flex flex-col md:flex-row justify-center md:justify-end items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? "translate-y-0" : "-translate-y-full"}`}>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">SmartPhones</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Laptops</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Tablets</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Headphones</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Cameras</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Printers</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Monitors</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Storage</a>
-        <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Accessories</a>
-      </div>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">SmartPhones</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Laptops</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Tablets</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Headphones</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Cameras</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Printers</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Monitors</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Storage</a>
+  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Accessories</a>
+</div>
+
 
       <div className="cursor-pointer text-black text-2xl" onClick={handleCartClick}>
         <FontAwesomeIcon icon={faShoppingCart} />

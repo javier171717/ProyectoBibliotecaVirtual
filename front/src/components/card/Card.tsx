@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import categoriesToPreLoad from "../../utils/categories";
-import { IProduct } from "@/types";
+import { IProduct } from "@/app/types/idex";
 
 const CardContainer = styled.div`
   display: flex;
