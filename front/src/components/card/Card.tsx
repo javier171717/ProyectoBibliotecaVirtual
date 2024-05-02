@@ -1,42 +1,35 @@
-import styled from "styled-components";
 import categoriesToPreLoad from "../../utils/categories";
-import { IProduct } from "@/app/types/idex";
-
-const CardContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #f2f2f2;
-  color: black;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  margin: 1rem;
-  max-width: 300px;
-  width: 300px;
-  height: 500px;
-  min-height: 500px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-`;
-
-const Image = styled.img`
-  width: 100%;
-  max-width: 100px;
-  height: 100%;
-  max-height: 200px;
-`;
+import { IProduct } from "@/app/types/index";
+import Image from "next/image";
+import Link from "next/link";
 
 const Card = ({ name, price, description, image, categoryId, stock }: IProduct) => {
   return (
-    <CardContainer>
-      <Image src={image} alt={image} />
-      <h2>{name}</h2>
-      <p>{description}</p>
-      <p>${price}</p>
-      <p>Category: {categoriesToPreLoad[categoryId].name}</p>
-      <p>Stock: {stock}</p>
-    </CardContainer>
+    <div className="flex flex-col items-center bg-gray-200 text-black p-4 border border-gray-300 rounded-lg shadow-md max-w-xs">
+      <div className="relative w-full h-48 mb-4 overflow-hidden">
+        <Image
+          src={image}
+          alt={name}
+          layout="responsive"
+          width={300}
+          height={300}
+          objectFit="contain"
+          className="absolute inset-0 w-full h-full"
+        />
+      </div>
+      <h2 className="text-lg font-semibold mb-2 text-center">{name}</h2>
+      <p className="mb-2 text-center">{description}</p>
+      <p className="font-bold text-lg mb-2">${price}</p>
+      <p className="mb-2">Category: {categoriesToPreLoad[categoryId].name}</p>
+      <p className="mb-2">Stock: {stock}</p>
+      <Link href="/compra" passHref>
+        <span className="text-blue-500 font-semibold hover:text-blue-700 cursor-pointer">Comprar</span>
+      </Link>
+    </div>
   );
 };
 
 export default Card;
+
+
+

@@ -35,25 +35,23 @@ const Navbar = () => {
           <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
         </div>
       </div>
+      
 
-      <div className={`flex flex-col md:flex-row justify-center md:justify-end items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? "translate-y-0" : "-translate-y-full"}`}>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">SmartPhones</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Laptops</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Tablets</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Headphones</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Cameras</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Printers</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Monitors</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Storage</a>
-  <a href="#" className="text-black mb-2 md:mb-0 md:mr-4">Accessories</a>
-</div>
+      <div className={`flex flex-col md:flex-row justify-center items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+        <a href="http://localhost:3000" className="text-black mb-2 md:mb-0 md:mr-4">Inicio</a>
+        <a href="http://localhost:3000/landing" className="text-black mb-2 md:mb-0 md:mr-4">Ofertas Especiales</a>
+        <a href="http://localhost:3000/product" className="text-black mb-2 md:mb-0 md:mr-4">Productos</a>
+        <a href="http://localhost:3000/contacto" className="text-black mb-2 md:mb-0 md:mr-4">Cont@cto</a>
+        <a href="http://localhost:3000/login" className="text-black mb-2 md:mb-0 md:mr-4">Login</a>
+        <a href="http://localhost:3000/register" className="text-black mb-2 md:mb-0 md:mr-4">Registrate</a>
+    </div>
 
 
       <div className="cursor-pointer text-black text-2xl" onClick={handleCartClick}>
         <FontAwesomeIcon icon={faShoppingCart} />
       </div>
     </nav>
-  );
+  )
 };
 
 export default Navbar;
