@@ -1,42 +1,41 @@
 "use client"
 import React, { useState } from 'react';
-import router from 'next/router';
 
-const Register = () => {
+const Contact = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!name || !email || !password) {
-      alert('Por favor, completa todos los campos');
+    if (!name || !email || !message) {
+      setError('Por favor, completa todos los campos');
       return;
     }
 
-    // Aquí puedes agregar la lógica para enviar el formulario de registro
+    // Aquí puedes agregar la lógica para enviar el formulario de contacto
     console.log('Name:', name);
     console.log('Email:', email);
-    console.log('Password:', password);
+    console.log('Message:', message);
 
     // Mostrar alerta de éxito y limpiar los campos
-    alert('Registro exitoso');
+    alert('Mensaje enviado correctamente');
     setName('');
     setEmail('');
-    setPassword('');
-    router.push('/Home');
- 
+    setMessage('');
   };
 
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Registrarse</h2>
+      <h2 className="text-2xl font-bold mb-4">Contacto</h2>
+      {error && <p className="text-red-500 mb-4">{error}</p>}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-            Name
+            Nombre
           </label>
           <input
             type="text"
@@ -50,7 +49,7 @@ const Register = () => {
         </div>
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            E-mail
+            Correo electrónico
           </label>
           <input
             type="email"
@@ -63,33 +62,29 @@ const Register = () => {
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-            Password
+          <label htmlFor="message" className="block text-gray-700 font-bold mb-2">
+            Mensaje
           </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+          <textarea
+            id="message"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            placeholder="Contraseña"
+            placeholder="Mensaje"
             required
-          />
+          ></textarea>
         </div>
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
           >
-            Registrarse
+            Enviar mensaje
           </button>
-          <p className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-            ¿Ya tienes una cuenta? <a href="/login">Iniciar sesión</a>
-          </p>
         </div>
       </form>
     </div>
   );
 };
 
-export default Register;
+export default Contact;

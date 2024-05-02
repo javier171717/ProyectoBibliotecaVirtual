@@ -1,4 +1,4 @@
-"use client"
+
 import Link from 'next/link';
 import { IProduct } from "@/app/types/index";
 import Card from "../card/Card";

@@ -1,18 +1,11 @@
 import Cards from '../cards/Cards'
 import productsToPreload from '../../utils/products'
-import styled from 'styled-components'
-
-const HomeContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`
 
 const Home = () => {
   return (
-    <HomeContainer>
+    <div className="flex justify-center items-center">
       <Cards products={productsToPreload}/>
-    </HomeContainer>
+    </div>
   )
 }
 

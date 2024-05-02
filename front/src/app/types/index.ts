@@ -7,3 +7,13 @@ export interface IProduct {
     image: string;
     categoryId: number;
   }
+
+  export interface loginProps{
+    email: string;
+    password: string;
+  }
+
+  export interface loginErrorProps{
+    email: string;
+    password: string;
+  }
