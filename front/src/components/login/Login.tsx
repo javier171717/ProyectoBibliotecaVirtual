@@ -1,8 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-import router from 'next/router';
+import {useRouter} from 'next/navigation';
+
 
 const Login = () => {
+  const router = useRouter()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -24,7 +26,7 @@ const Login = () => {
     alert('¡Inicio de sesión exitoso!');
     setEmail('');
     setPassword('');
-    router.push('/Home');
+    router.push('/');
   };
 
   return (

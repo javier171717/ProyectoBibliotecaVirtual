@@ -1,7 +1,9 @@
 "use client"
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Contact = () => {
+  const router = useRouter()
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
@@ -26,6 +28,7 @@ const Contact = () => {
     setName('');
     setEmail('');
     setMessage('');
+    router.push('/');
   };
 
   return (

@@ -1,8 +1,9 @@
 "use client"
 import React, { useState } from 'react';
-import router from 'next/router';
+import {useRouter} from 'next/navigation';
 
 const Register = () => {
+  const router = useRouter()
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -26,7 +27,7 @@ const Register = () => {
     setName('');
     setEmail('');
     setPassword('');
-    router.push('/Home');
+    router.push('/');
  
   };
 
