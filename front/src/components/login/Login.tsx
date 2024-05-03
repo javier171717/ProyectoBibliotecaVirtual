@@ -4,6 +4,7 @@ import {useRouter} from 'next/navigation';
 
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false); // Agrega esta línea
   const router = useRouter()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -49,19 +50,28 @@ const Login = () => {
           />
         </div>
         <div className="mb-6">
-          <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Ingresa tu contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
+  <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+    Password
+  </label>
+  <input
+    type={showPassword ? "text" : "password"}
+    id="password"
+    placeholder="Ingresa tu contraseña"
+    value={password}
+    onChange={(e) => setPassword(e.target.value)}
+    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+    required
+  />
+  <button
+    type="button"
+    onClick={() => setShowPassword(!showPassword)}
+    aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+    className="bg-gray-200 hover:bg-gray-300 rounded p-1 ml-2"
+  >
+    {showPassword ? "🙈" : "👁️"}
+  </button>
+</div>
+
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

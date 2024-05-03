@@ -8,6 +8,7 @@ const nextConfig = {
           hostname: 'http2.mlstatic.com',
           port: '',
           pathname: '/**',
+         
         },
       ],
     },
