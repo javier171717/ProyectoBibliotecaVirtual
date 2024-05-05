@@ -1,19 +1,23 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    
-    images: {
+  images: {
       remotePatterns: [
         {
-          protocol: 'https',
-          hostname: 'http2.mlstatic.com',
-          port: '',
-          pathname: '/**',
-         
+          hostname: "http2.mlstatic.com",
+        },
+        {
+          hostname: "cdn-icons-png.flaticon.com",
+        },
+        {
+          hostname: "images.pexels.com",
+        },
+        {
+          hostname: "www.apple.com",
         },
       ],
     },
-  };
-  
-  export default nextConfig;
-  
-  
+  compiler :{
+      styledComponents: true
+  }
+};
+export default nextConfig;

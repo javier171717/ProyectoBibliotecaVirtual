@@ -1,12 +1,22 @@
-import Cards from '../cards/Cards'
-import productsToPreload from '../../utils/products'
 
-const Home = () => {
+import carouselImagesToPreLoad from "..//../utils/images";
+import Cards from '../cards/Cards'
+import { getProducts } from '@/helpers/product.helpers';
+import Carousel from  "@/components/carousel/Carousel";
+
+
+
+
+const Home = async() => {
+  const products = await getProducts();
   return (
-    <div className="flex justify-center items-center">
-      <Cards products={productsToPreload}/>
+    
+    <div className="my-32 flex flex-col items-center justify-center">
+      <Carousel images= {carouselImagesToPreLoad} />
+      <Cards products={products}/>
     </div>
+  
   )
 }
 
-export default Home
+export default Home;

@@ -5,6 +5,7 @@ import Card from "../card/Card";
 
 const Cards = ({ products }: { products: IProduct[] }) => {
   return (
+    
     <div className="flex justify-center items-center flex-wrap">
       {products?.map((product) => (
         <Link href={`/product/${product.id}`} key={product.name} passHref>
@@ -12,6 +13,7 @@ const Cards = ({ products }: { products: IProduct[] }) => {
         </Link>
       ))}
     </div>
+   
   );
 };
 

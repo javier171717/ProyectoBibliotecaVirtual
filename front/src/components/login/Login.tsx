@@ -1,11 +1,10 @@
 "use client"
 import React, { useState } from 'react';
-import {useRouter} from 'next/navigation';
-
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
-  const [showPassword, setShowPassword] = useState(false); // Agrega esta línea
-  const router = useRouter()
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -31,59 +30,64 @@ const Login = () => {
   };
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold mb-4">Iniciar sesión</h2>
-      {error && <p className="text-red-500 mb-4">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-            E-mail
-          </label>
-          <input
-            type="email"
-            id="email"
-            placeholder="Ingresa tu correo electrónico"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            required
-          />
-        </div>
-        <div className="mb-6">
-  <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-    Password
-  </label>
-  <input
-    type={showPassword ? "text" : "password"}
-    id="password"
-    placeholder="Ingresa tu contraseña"
-    value={password}
-    onChange={(e) => setPassword(e.target.value)}
-    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-    required
-  />
-  <button
-    type="button"
-    onClick={() => setShowPassword(!showPassword)}
-    aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-    className="bg-gray-200 hover:bg-gray-300 rounded p-1 ml-2"
-  >
-    {showPassword ? "🙈" : "👁️"}
-  </button>
-</div>
+    <div className="flex items-center justify-center h-full">
+      <div className="w-full max-w-md p-4">
+        <h2 className="text-2xl font-bold mb-4 text-center">Iniciar sesión</h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+              E-mail
+            </label>
+            <input
+              type="email"
+              id="email"
+              placeholder="Ingresa tu correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+          </div>
+          <div className="mb-6">
+            <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
+              Password
+            </label>
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              placeholder="Ingresa tu contraseña"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              required
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+              className="bg-gray-200 hover:bg-gray-300 rounded p-1 ml-2"
+            >
+              {showPassword ? '🙈' : '👁️'}
+            </button>
+          </div>
 
-        <div className="flex items-center justify-between">
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
-            Iniciar sesión
-          </button>
-          <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-            ¿Olvidaste tu contraseña?
-          </a>
-        </div>
-      </form>
+          <div className="flex items-center justify-center">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="submit"
+            >
+              Iniciar sesión
+            </button>
+          </div>
+
+          <div className="text-center">
+            <a className="block mt-4 text-sm text-blue-500 hover:text-blue-800" href="#">
+              ¿Olvidaste tu contraseña?
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
