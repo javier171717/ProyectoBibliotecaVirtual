@@ -23,7 +23,7 @@ const Card = ({ name, price, description, image, categoryId, stock }: IProduct) 
         <p className="mb-2">Category: {categoriesToPreLoad[categoryId].name}</p>
         <p className="mb-2">Stock: {stock}</p>
         <Link href="/compra" passHref>
-          <span className="text-blue-500 font-semibold hover:text-blue-700 cursor-pointer">Comprar</span>
+          <span className="text-blue-500 font-semibold hover:text-blue-700 cursor-pointer"></span>
         </Link>
       </div>
     </div>

@@ -1,34 +1,59 @@
 "use client"
+
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false); 
+  const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !address || !phone) {
       alert('Por favor, completa todos los campos');
       return;
     }
 
-    // Aquí puedes agregar la lógica para enviar el formulario de registro
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
+    try {
+      const response = await fetch('http://localhost:3001/users/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+          name,
+          address,
+          phone,
+          
+        }),
+      });
 
-    // Mostrar alerta de éxito y limpiar los campos
-    alert('Registro exitoso');
-    setName('');
-    setEmail('');
-    setPassword('');
-    router.push('/');
+      if (response.ok) {
+        alert('Registro exitoso');
+        setName('');
+        setEmail('');
+        setPassword('');
+        setAddress('');
+        setPhone('');
+        router.push('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
+      } else {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Error en el registro');
+      }
+    } catch (error) {
+      console.error('Error al registrar usuario:', error);
+      alert('Error al registrar usuario');
+    }
   };
 
   return (
@@ -61,6 +86,34 @@ const Register = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               placeholder="Correo electrónico"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
+              Dirección
+            </label>
+            <input
+              type="text"
+              id="address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Dirección"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
+              Teléfono
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              placeholder="Teléfono"
               required
             />
           </div>

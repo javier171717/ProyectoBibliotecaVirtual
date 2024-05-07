@@ -8,25 +8,57 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos
-    if (!email || !password) {
-      setError('Por favor, ingresa tu correo electrónico y contraseña');
-      return;
+    const dataUser = { email, password };
+    try {
+      const response = await fetch('http://localhost:3001/users/login', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dataUser)
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        console.log('Inicio de sesión exitoso:', userData);
+        alert('¡Inicio de sesión exitoso!');
+        setEmail('');
+        setPassword('');
+
+        // Verificar si el token se ha establecido correctamente
+        const token = userData.token;
+        if (token) {
+          console.log('Token encontrado:', token);
+          localStorage.setItem('token', token);
+          localStorage.setItem('userData', JSON.stringify(userData));
+          setIsLoggedIn(true);
+        
+          // Almacenar los datos del usuario en el localStorage
+        
+        
+          router.push('/');
+        } else {
+          console.log('Token no encontrado. El inicio de sesión no fue exitoso.');
+        }
+        
+      } else {
+        const errorData = await response.json();
+        if (response.status === 404 && errorData.message === 'User not found') {
+          setError('El usuario no está registrado. Por favor, regístrate.');
+          router.push('/register');
+        } else {
+          throw new Error(errorData.message || 'Error en el inicio de sesión');
+        }
+      }
+    } catch (error: any) {
+      console.error('Error al iniciar sesión:', error);
+      alert('señor usuario usted no esta registrado');
     }
-
-    // Aquí puedes agregar la lógica para enviar el formulario de inicio de sesión
-    // Por ejemplo, puedes hacer una solicitud a una API para validar las credenciales del usuario
-
-    // Si el inicio de sesión es exitoso, muestra una alerta y redirige al usuario a la página de inicio
-    console.log('Inicio de sesión exitoso:', { email, password });
-    alert('¡Inicio de sesión exitoso!');
-    setEmail('');
-    setPassword('');
-    router.push('/');
   };
 
   return (
