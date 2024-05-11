@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -24,9 +25,15 @@ const Login = () => {
       });
 
       if (response.ok) {
+        
         const userData = await response.json();
         console.log('Inicio de sesión exitoso:', userData);
-        alert('¡Inicio de sesión exitoso!');
+        Swal.fire({
+          icon: 'success',
+          title: '¡Inicio de sesión exitoso!',
+          text: '¡Bienvenido de nuevo!',
+          confirmButtonText: 'Aceptar',
+        });
         setEmail('');
         setPassword('');
 
@@ -57,7 +64,12 @@ const Login = () => {
       }
     } catch (error: any) {
       console.error('Error al iniciar sesión:', error);
-      alert('señor usuario usted no esta registrado');
+      Swal.fire({
+        icon: 'info',
+        title: '¡Usuario no registrado!',
+        text: 'Por favor, regístrate para acceder a más funciones.',
+        confirmButtonText: 'Entendido',
+      });
     }
   };
 

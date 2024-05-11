@@ -17,3 +17,15 @@ export interface IProduct {
     email: string;
     password: string;
   }
+
+interface Compra {
+  nombreProducto: string;
+  precio: number;
+  
+}
+
+interface CarouselImageProps {
+  key: number;
+  image: string;
+  active: boolean; // Agrega la propiedad 'active' al tipo
+}

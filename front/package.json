@@ -19,7 +19,8 @@
     "react": "^18",
     "react-dom": "^18",
     "server-only": "^0.0.1",
-    "styled": "^1.0.0"
+    "styled": "^1.0.0",
+    "sweetalert2": "^11.10.8"
   },
   "devDependencies": {
     "@types/node": "^20",

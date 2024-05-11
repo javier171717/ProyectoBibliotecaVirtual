@@ -1,3 +1,4 @@
+"use client"
 import Contact from "@/components/contacto/Contacto"
 
 const Contactfrom = () => {

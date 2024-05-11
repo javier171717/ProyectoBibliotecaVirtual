@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation';
 import { getProductById } from "@/helpers/product.helpers";
 import { IProduct } from "../../types/index"; 
-
+import Swal from 'sweetalert2';
 
 
 const DetailProduct = ({ params }: { params: { productId: string } }) => {
@@ -15,24 +15,48 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token); // Establece isLoggedIn como true si hay un token presente en el localStorage
 
-    const fetchProduct = async () => {
-      const fetchedProduct = await getProductById(params.productId);
-      setProduct(fetchedProduct);
+    const fetchProduct = () => {
+      getProductById(params.productId)
+        .then((fetchedProduct) => {
+          setProduct(fetchedProduct);
+        })
+        .catch((error) => {
+          console.error('Error al obtener el producto:', error);
+        });
     };
+    
 
     fetchProduct();
   }, [params.productId]);
 
   const handleBuy = () => {
     if (!isLoggedIn) {
-      // Si el usuario no está autenticado, redirige a la página de inicio de sesión
-      alert("Debes iniciar sesión para agregar productos al carrito.");
-      router.push("/login");
+      // Si el usuario no está autenticado, muestra el mensaje con SweetAlert2
+      Swal.fire({
+        icon: 'warning',
+        title: '¡Debes iniciar sesión!',
+        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        showCancelButton: true,
+        confirmButtonText: 'Iniciar sesión',
+        cancelButtonText: 'Cancelar',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Redirige al usuario a la página de inicio de sesión si hacen clic en "Iniciar sesión"
+          router.push('/login');
+        }
+      });
+    
+      // Detén la ejecución para evitar que el código siguiente se ejecute
       return;
     }
 
     // Simulación de agregar producto al carrito
-    alert("Producto agregado al carrito");
+    Swal.fire({
+      icon: 'success',
+      title: '¡Producto agregado al carrito!',
+      showConfirmButton: false,
+      timer: 1500, // Duración en milisegundos para mostrar el mensaje antes de cerrarlo automáticamente
+    });
   };
 
   if (!product) {

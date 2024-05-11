@@ -1,4 +1,4 @@
-// Importa el componente Login
+"use client"
 
 import Login from '../../components/login/Login';
 

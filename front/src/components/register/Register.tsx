@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Swal from 'sweetalert2';
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,13 +13,17 @@ const Register = () => {
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
 
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validar que los campos no estén vacíos
     if (!name || !email || !password || !address || !phone) {
-      alert('Por favor, completa todos los campos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Campos vacíos',
+        text: 'Por favor, completa todos los campos.',
+        confirmButtonText: 'Entendido',
+      });
       return;
     }
 
@@ -34,25 +39,35 @@ const Register = () => {
           name,
           address,
           phone,
-          
         }),
       });
 
       if (response.ok) {
-        alert('Registro exitoso');
-        setName('');
-        setEmail('');
-        setPassword('');
-        setAddress('');
-        setPhone('');
-        router.push('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
+        Swal.fire({
+          icon: 'success',
+          title: 'Registro exitoso',
+          text: '¡Registro exitoso! Serás redirigido a la página de inicio de sesión.',
+          confirmButtonText: 'Entendido',
+        }).then(() => {
+          setName('');
+          setEmail('');
+          setPassword('');
+          setAddress('');
+          setPhone('');
+          router.push('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
+        });
       } else {
         const errorData = await response.json();
         throw new Error(errorData.message || 'Error en el registro');
       }
     } catch (error) {
       console.error('Error al registrar usuario:', error);
-      alert('Error al registrar usuario');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error al registrar usuario',
+        text: 'Ha ocurrido un error al intentar registrar el usuario. Por favor, inténtalo de nuevo más tarde.',
+        confirmButtonText: 'Entendido',
+      });
     }
   };
 

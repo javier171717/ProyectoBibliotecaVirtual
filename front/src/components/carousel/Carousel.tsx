@@ -30,6 +30,7 @@ export default function Carousel({ images }: ICarouselProps) {
         {images.map((image, index) => (
           <CarouselImage
             key={image.id}
+            id={image.id}
             image={image.image}
             active={index === activeIndex}
           />

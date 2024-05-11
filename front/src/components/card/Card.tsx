@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import categoriesToPreLoad from "../../utils/categories";
 import { IProduct } from "@/app/types/index";
 import Image from "next/image";
