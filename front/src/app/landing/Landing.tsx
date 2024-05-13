@@ -4,8 +4,8 @@ import React from 'react'
 const landing = () => {
   return (
     <div>
-      <h1>Esta es la pagina Landing
-      </h1>
+      <h1>Esta pagina esta en mantenimiento</h1>
+      
     </div>
   )
 }

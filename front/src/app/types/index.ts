@@ -29,3 +29,10 @@ interface CarouselImageProps {
   image: string;
   active: boolean; // Agrega la propiedad 'active' al tipo
 }
+
+interface CartProduct {
+  name: string;
+  price: number;
+
+}
+

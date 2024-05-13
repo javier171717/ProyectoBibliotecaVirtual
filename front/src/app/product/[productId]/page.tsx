@@ -1,10 +1,10 @@
+
 "use client"
 import { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation'; 
 import { getProductById } from "@/helpers/product.helpers";
 import { IProduct } from "../../types/index"; 
 import Swal from 'sweetalert2';
-
 
 const DetailProduct = ({ params }: { params: { productId: string } }) => {
   const router = useRouter();
@@ -13,25 +13,22 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // Establece isLoggedIn como true si hay un token presente en el localStorage
+    setIsLoggedIn(!!token);
 
-    const fetchProduct = () => {
-      getProductById(params.productId)
-        .then((fetchedProduct) => {
-          setProduct(fetchedProduct);
-        })
-        .catch((error) => {
-          console.error('Error al obtener el producto:', error);
-        });
+    const fetchProduct = async () => {
+      try {
+        const fetchedProduct = await getProductById(params.productId);
+        setProduct(fetchedProduct);
+      } catch (error) {
+        console.error('Error al obtener el producto:', error);
+      }
     };
-    
 
     fetchProduct();
   }, [params.productId]);
 
   const handleBuy = () => {
     if (!isLoggedIn) {
-      // Si el usuario no está autenticado, muestra el mensaje con SweetAlert2
       Swal.fire({
         icon: 'warning',
         title: '¡Debes iniciar sesión!',
@@ -41,21 +38,27 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          // Redirige al usuario a la página de inicio de sesión si hacen clic en "Iniciar sesión"
           router.push('/login');
         }
       });
     
-      // Detén la ejecución para evitar que el código siguiente se ejecute
       return;
     }
 
-    // Simulación de agregar producto al carrito
+    // Guardar el producto en el carrito del usuario (simulación)
+    const cartProducts = JSON.parse(localStorage.getItem('cartProducts') || '[]');
+    const newProduct = { id: cartProducts.length + 1, nombreProducto: product?.name || '', precio: product?.price || 0, imagen: product?.image || '' };
+    cartProducts.push(newProduct);
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+
+    // Redirigir al usuario a la página de compras
+    router.push('/compra');
+
     Swal.fire({
       icon: 'success',
       title: '¡Producto agregado al carrito!',
       showConfirmButton: false,
-      timer: 1500, // Duración en milisegundos para mostrar el mensaje antes de cerrarlo automáticamente
+      timer: 1500,
     });
   };
 
@@ -83,4 +86,6 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
 };
 
 export default DetailProduct;
+
+
 

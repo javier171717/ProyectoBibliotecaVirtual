@@ -15,11 +15,14 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1>Dashboard de Usuario</h1>
+      <h1>Mis datos:</h1>
       {userData ? (
         <div>
           <p>Bienvenido, {userData.name}!</p>
           <p>Tu dirección: {userData.address}</p>
+          <p>Tu numero de contacto es : {userData.phone}</p>
+          <p>Tu correo es : {userData.email}</p>
+          
           {/* Mostrar otras propiedades del usuario si es necesario */}
         </div>
       ) : (

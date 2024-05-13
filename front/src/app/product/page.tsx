@@ -4,7 +4,7 @@ import React from 'react'
 const Product = () => {
   return (
     <div>
-      Esta es la pagina de los productos
+         <h1>Esta pagina esta en mantenimiento</h1>
     </div>
   )
 }
