@@ -1,4 +1,6 @@
-import { IProduct } from "@types/index"
+import { IProduct } from "@/app/types";
+
+
 const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 export async function getProductsDB() {
