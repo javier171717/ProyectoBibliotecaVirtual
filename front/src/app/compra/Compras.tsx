@@ -42,7 +42,7 @@ const Compras = () => {
   
   return (
     <div>
-      <h1>Esta es la página de compras</h1>
+      <h1>Este producto esta en oferta...!</h1>
       {compras.length > 0 ? (
         <div>
           <ul>

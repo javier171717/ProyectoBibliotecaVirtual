@@ -7,7 +7,7 @@ import Link from "next/link";
 const Card = ({ name, price, description, image, categoryId, stock }: IProduct) => {
   return (
     <div className="flex items-center justify-center h-full">
-      <div className="flex flex-col items-center bg-gray-300 text-black p-4 border border-gray-300 rounded-lg shadow-md max-w-xs mx-2">
+      <div className="flex flex-col items-center bg-gray-300 text-black p-3 border border-gray-300 rounded-lg shadow-md max-w-xs mx-2">
         <div className="relative w-full h-48 mb-4 overflow-hidden">
           <Image
             src={image}

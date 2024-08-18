@@ -41,19 +41,51 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
           router.push('/login');
         }
       });
-    
+  
       return;
     }
-
-    // Guardar el producto en el carrito del usuario (simulación)
-    const cartProducts = JSON.parse(localStorage.getItem('cartProducts') || '[]');
-    const newProduct = { id: cartProducts.length + 1, nombreProducto: product?.name || '', precio: product?.price || 0, imagen: product?.image || '' };
+  
+    // Obtener el carrito del usuario (simulación)
+    const cartProducts: { id: number; nombreProducto: string; precio: number; imagen: string }[] = JSON.parse(localStorage.getItem('cartProducts') || '[]');
+  
+    // Verificar si el producto ya está en el carrito
+    if (!product) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'El producto no existe.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+  
+    const productExists = cartProducts.some((item: { id: number }) => item.id === product.id);
+  
+    if (productExists) {
+      Swal.fire({
+        icon: 'info',
+        title: 'Producto ya en el carrito',
+        text: 'Este producto ya ha sido agregado al carrito.',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+  
+    // Agregar el nuevo producto al carrito
+    const newProduct = {
+      id: product.id,
+      nombreProducto: product.name || '',
+      precio: product.price || 0,
+      imagen: product.image || '',
+    };
     cartProducts.push(newProduct);
     localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
-
+  
     // Redirigir al usuario a la página de compras
     router.push('/compra');
-
+  
     Swal.fire({
       icon: 'success',
       title: '¡Producto agregado al carrito!',
@@ -61,6 +93,8 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
       timer: 1500,
     });
   };
+  
+  
 
   if (!product) {
     return <div>Cargando...</div>;

@@ -1,4 +1,7 @@
 "use client"
+
+
+
 import React from 'react'
 
 const Product = () => {
@@ -10,3 +13,7 @@ const Product = () => {
 }
 
 export default Product;
+
+
+
+

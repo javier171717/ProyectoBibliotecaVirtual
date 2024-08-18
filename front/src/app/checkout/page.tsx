@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 
 interface CartProduct {
   id: number;
-  name: string;
+  nombreProducto: string;
   description: string;
   precio: number;
   stock: number;
@@ -54,34 +54,42 @@ const CheckoutPage = () => {
 
   const handleCheckout = () => {
     if (cartProducts.length === 0) {
-      // Mostrar mensaje de error si el carrito está vacío
       Swal.fire({
         icon: 'error',
         title: 'Error',
         text: 'No puedes confirmar la compra con el carrito vacío. Agrega productos al carrito para continuar.',
         showConfirmButton: true,
-     
       });
     } else {
-      // Lógica para procesar el pago y completar la compra
+      // Simular el guardado de la orden
+      const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
+      const newOrder = {
+        id: storedOrders.length + 1,
+        date: new Date().toISOString(),
+        total: totalPrecio,
+        products: cartProducts.map(product => ({
+          id: product.id,
+          name:  product.nombreProducto,
+          price: product.precio,
+        })),
+      };
+      storedOrders.push(newOrder);
+      localStorage.setItem('orders', JSON.stringify(storedOrders));
+  
       Swal.fire({
         icon: 'success',
         title: '¡Compra realizada con éxito!',
         text: 'Gracias por su compra. Recibirá un correo de confirmación.',
         showConfirmButton: true,
       }).then(() => {
-        // Vaciar el carrito después de la compra
         setCartProducts([]);
         localStorage.removeItem('cartProducts');
-  
-        // Actualizar el total a pagar a cero
         setTotalPrecio(0);
-  
-        // Redirigir al usuario a la página de inicio después de la compra
         router.push('/');
       });
     }
   };
+  
   
   
 
@@ -93,10 +101,10 @@ const CheckoutPage = () => {
           <div key={index} className="border p-4 flex items-center justify-between">
             <div className="flex items-center">
               <div style={{ width: '64px', height: '64px', marginRight: '10px' }}>
-                <img src={product.imagen} alt={product.name} style={{ width: '100%', height: '100%' }} />
+                <img src={product.imagen} alt={product.nombreProducto} style={{ width: '100%', height: '100%' }} />
               </div>
               <div>
-                <h2 className="text-lg font-semibold">{product.name}</h2>
+                <h2 className="text-lg font-semibold">{product.nombreProducto}</h2>
                 <p>{product.description}</p>
                 <p>Precio: ${product.precio}</p>
               </div>
