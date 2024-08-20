@@ -1,14 +1,25 @@
-"use client"
+"use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faShoppingCart, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
-  
+  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(''); // Estado para el nombre del usuario
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const userData = localStorage.getItem('userData');
+    
+    if (token && userData) {
+      const parsedUserData = JSON.parse(userData);
+      setIsLoggedIn(true);
+      setUsername(parsedUserData.user.name); // Acceder al nombre del usuario correctamente
+    }
+  }, []);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -19,12 +30,13 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    localStorage.removeItem('token');
+    localStorage.removeItem('userData');
+    localStorage.removeItem('orders');
+    localStorage.removeItem('cartProducts');
     
-  };
-
-  const handleLogin = () => {
-    setIsLoggedIn(true); 
+    setIsLoggedIn(false);
+    setUsername(''); // Limpiar el nombre del usuario
   };
 
   return (
@@ -36,13 +48,15 @@ const Navbar = () => {
        
         {isLoggedIn ? (
           <div className="flex items-center">
-            <span className="text-white mr-4">¡Hola, usuario!</span>
+            <span className="text-white mr-4">
+              ¡Hola, <span style={{ color: 'orange' }}>{username}</span>!
+            </span>
             <button onClick={handleLogout} className="text-white mr-4">Cerrar Sesión</button>
           </div>
         ) : (
           <div className="flex items-center">
-            <a href="http://localhost:3000/login" className="text-white mr-4">Login</a>
-            <a href="http://localhost:3000/register" className="text-white">Registrate</a>
+            <Link href="/login" className="text-white mr-4">Login</Link>
+            <Link href="/register" className="text-white">Registrate</Link>
           </div>
         )}
         <button className="flex items-center">
@@ -54,16 +68,16 @@ const Navbar = () => {
           <FontAwesomeIcon icon={faSearch} className="text-gray-400 h-6 w-6" />
         </button>
         <div className="block md:hidden" onClick={toggleMenu}>
-          <FontAwesomeIcon icon={isMenuOpen ? faBars : faBars} />
+          <FontAwesomeIcon icon={faBars} />
         </div>
       </div>
 
       <div className={`flex flex-col md:flex-row justify-center items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
-        <a href="http://localhost:3000" className="text-black mb-2 md:mb-0 md:mr-4">Productos</a>
-        <a href="http://localhost:3000/landing" className="text-black mb-2 md:mb-0 md:mr-4">Ofertas Especiales</a>
-        <a href="http://localhost:3000/contacto" className="text-black mb-2 md:mb-0 md:mr-4">Cont@cto</a>
-        <a href="http://localhost:3000/orders" className="text-black mb-2 md:mb-0 md:mr-4">Ordenes</a>
-        <a href="http://localhost:3000/dashboard" className="text-black mb-2 md:mb-0 md:mr-4">Mi cuenta</a>
+        <Link href="/" className="text-black mb-2 md:mb-0 md:mr-4">Productos</Link>
+        <Link href="/landing" className="text-black mb-2 md:mb-0 md:mr-4">Ofertas Especiales</Link>
+        <Link href="/contacto" className="text-black mb-2 md:mb-0 md:mr-4">Cont@cto</Link>
+        <Link href="/orders" className="text-black mb-2 md:mb-0 md:mr-4">Ordenes</Link>
+        <Link href="/dashboard" className="text-black mb-2 md:mb-0 md:mr-4">Mi Cuenta</Link>
       </div>
 
       <div className="cursor-pointer text-black text-2xl" onClick={handleCartClick}>
@@ -74,3 +88,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
+

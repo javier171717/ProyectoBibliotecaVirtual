@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
+import {loginUser} from '../../utils/auth.js';
+ 
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -9,61 +11,32 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const dataUser = { email, password };
     try {
-      const response = await fetch('http://localhost:3001/users/login', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(dataUser)
+      const userData = await loginUser(dataUser);
+      console.log('Inicio de sesión exitoso:', userData);
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Inicio de sesión exitoso!',
+        text: '¡Bienvenido de nuevo!',
+        confirmButtonText: 'Aceptar',
       });
 
-      if (response.ok) {
-        
-        const userData = await response.json();
-        console.log('Inicio de sesión exitoso:', userData);
-        Swal.fire({
-          icon: 'success',
-          title: '¡Inicio de sesión exitoso!',
-          text: '¡Bienvenido de nuevo!',
-          confirmButtonText: 'Aceptar',
-        });
-        setEmail('');
-        setPassword('');
-
-        // Verificar si el token se ha establecido correctamente
-        const token = userData.token;
-        if (token) {
-          console.log('Token encontrado:', token);
-          localStorage.setItem('token', token);
-          localStorage.setItem('userData', JSON.stringify(userData));
-          setIsLoggedIn(true);
-        
-          // Almacenar los datos del usuario en el localStorage
-        
-        
-          router.push('/');
-        } else {
-          console.log('Token no encontrado. El inicio de sesión no fue exitoso.');
-        }
-        
+      const token = userData.token;
+      if (token) {
+        localStorage.setItem('token', token);
+        localStorage.setItem('userData', JSON.stringify(userData));
+        router.push('/');
       } else {
-        const errorData = await response.json();
-        if (response.status === 404 && errorData.message === 'User not found') {
-          setError('El usuario no está registrado. Por favor, regístrate.');
-          router.push('/register');
-        } else {
-          throw new Error(errorData.message || 'Error en el inicio de sesión');
-        }
+        console.log('Token no encontrado. El inicio de sesión no fue exitoso.');
       }
     } catch (error: any) {
-      console.error('Error al iniciar sesión:', error);
+      console.error('Error al iniciar sesión:', error.message);
       Swal.fire({
         icon: 'info',
         title: '¡Usuario no registrado!',
