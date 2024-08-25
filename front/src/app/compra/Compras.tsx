@@ -1,15 +1,12 @@
-
-"use client"
+"use client";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-
 
 interface Compra {
   id: number;
   nombreProducto: string;
   precio: number;
   imagen: string;
-  
 }
 
 const Compras = () => {
@@ -39,17 +36,20 @@ const Compras = () => {
     // Redirige al usuario a la página de checkout
     router.push('/checkout');
   };
-  
+
   return (
-    <div>
-      <h1>Este producto esta en oferta...!</h1>
+    <div className="pt-24 p-6 md:pt-28"> {/* Ajustar el padding superior */}
+      <h1 className="text-2xl font-bold mb-4">Este producto está en oferta...!</h1>
       {compras.length > 0 ? (
-        <div>
-          <ul>
+        <div className="space-y-4">
+          <ul className="space-y-4">
             {compras.map((compra) => (
-              <li key={compra.id}>
-                <img src={compra.imagen} alt={compra.nombreProducto} width={50} height={50} />
-                {compra.nombreProducto} - ${compra.precio}
+              <li key={compra.id} className="flex items-center p-4 bg-white rounded-lg shadow-md">
+                <img src={compra.imagen} alt={compra.nombreProducto} width={50} height={50} className="mr-4" />
+                <div>
+                  <p className="text-gray-800 font-medium">{compra.nombreProducto}</p>
+                  <p className="text-gray-600">${compra.precio}</p>
+                </div>
               </li>
             ))}
           </ul>
@@ -65,7 +65,6 @@ const Compras = () => {
       )}
     </div>
   );
-  
 };
 
 export default Compras;

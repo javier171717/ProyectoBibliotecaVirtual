@@ -1,9 +1,8 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-import {loginUser} from '../../utils/auth.js';
- 
+import { loginUser } from '../../utils/auth.js';
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -47,8 +46,8 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="w-full max-w-md p-4">
+    <div className="flex items-center justify-center min-h-screen mt-24"> {/* Ajuste de margen superior */}
+      <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Iniciar sesión</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -110,3 +109,4 @@ const Login = () => {
 };
 
 export default Login;
+

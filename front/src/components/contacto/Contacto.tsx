@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -32,14 +32,14 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="w-full max-w-md p-4">
+    <div className="flex items-center justify-center min-h-screen mt-24"> {/* Ajuste de margen superior */}
+      <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Contacto</h2>
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-              Name
+              Nombre
             </label>
             <input
               type="text"
@@ -53,7 +53,7 @@ const Contact = () => {
           </div>
           <div>
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-              E-mail
+              Correo electrónico
             </label>
             <input
               type="email"
@@ -67,7 +67,7 @@ const Contact = () => {
           </div>
           <div>
             <label htmlFor="message" className="block text-gray-700 font-bold mb-2">
-              Message
+              Mensaje
             </label>
             <textarea
               id="message"

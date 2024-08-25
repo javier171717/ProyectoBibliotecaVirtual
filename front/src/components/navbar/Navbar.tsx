@@ -8,7 +8,7 @@ import Image from "next/image";
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState(''); // Estado para el nombre del usuario
+  const [username, setUsername] = useState(''); 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ const Navbar = () => {
     if (token && userData) {
       const parsedUserData = JSON.parse(userData);
       setIsLoggedIn(true);
-      setUsername(parsedUserData.user.name); // Acceder al nombre del usuario correctamente
+      setUsername(parsedUserData.user.name); 
     }
   }, []);
 
@@ -40,7 +40,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="flex flex-col items-center justify-between px-10 py-4 bg-blue-500">
+    <nav className="fixed top-0 left-0 w-full z-10 flex flex-col items-center justify-between px-10 py-2 bg-blue-500"> {/* Cambiado py-4 a py-2 */}
       <div className="w-full flex flex-row justify-between items-center">
         <Link href="/">
           <Image src="/images/Logo.png" alt="Logo" width={80} height={80} className="cursor-pointer" />
@@ -88,6 +88,8 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+
 
 
 

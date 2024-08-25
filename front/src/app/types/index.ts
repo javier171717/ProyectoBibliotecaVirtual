@@ -6,6 +6,7 @@ export interface IProduct {
     stock: number;
     image: string;
     categoryId: number;
+    isOnSale: boolean;
   }
 
   export interface loginProps{
@@ -27,7 +28,7 @@ interface Compra {
 interface CarouselImageProps {
   key: number;
   image: string;
-  active: boolean; // Agrega la propiedad 'active' al tipo
+  active: boolean; 
 }
 
 interface CartProduct {

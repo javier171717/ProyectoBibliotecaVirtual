@@ -1,8 +1,7 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Swal from 'sweetalert2';
-
 
 interface CartProduct {
   id: number;
@@ -23,7 +22,6 @@ const CheckoutPage = () => {
     const storedCartProducts = JSON.parse(localStorage.getItem('cartProducts') || '[]') as CartProduct[];
     setCartProducts(storedCartProducts);
 
-    
     const total = storedCartProducts.reduce((acc, product) => acc + product.precio, 0);
     setTotalPrecio(total);
   }, []);
@@ -32,11 +30,10 @@ const CheckoutPage = () => {
     const updatedCart = cartProducts.filter((product) => product.id !== productId);
     setCartProducts(updatedCart);
     localStorage.setItem('cartProducts', JSON.stringify(updatedCart));
-  
+
     const total = updatedCart.reduce((acc, product) => acc + product.precio, 0);
     setTotalPrecio(total);
-  
-    // Verificar si el carrito está vacío después de eliminar un producto
+
     if (updatedCart.length === 0) {
       Swal.fire({
         icon: 'info',
@@ -44,13 +41,10 @@ const CheckoutPage = () => {
         text: 'Agrega productos al carrito para continuar con la compra.',
         showConfirmButton: true,
       }).then(() => {
-        // Redirigir al usuario a la página de inicio
         router.push('/');
       });
     }
   };
-  
-  
 
   const handleCheckout = () => {
     if (cartProducts.length === 0) {
@@ -61,7 +55,6 @@ const CheckoutPage = () => {
         showConfirmButton: true,
       });
     } else {
-      // Simular el guardado de la orden
       const storedOrders = JSON.parse(localStorage.getItem('orders') || '[]');
       const newOrder = {
         id: storedOrders.length + 1,
@@ -69,13 +62,13 @@ const CheckoutPage = () => {
         total: totalPrecio,
         products: cartProducts.map(product => ({
           id: product.id,
-          name:  product.nombreProducto,
+          name: product.nombreProducto,
           price: product.precio,
         })),
       };
       storedOrders.push(newOrder);
       localStorage.setItem('orders', JSON.stringify(storedOrders));
-  
+
       Swal.fire({
         icon: 'success',
         title: '¡Compra realizada con éxito!',
@@ -89,16 +82,13 @@ const CheckoutPage = () => {
       });
     }
   };
-  
-  
-  
 
   return (
-    <div className="container mx-auto mt-8">
+    <div className="container mx-auto mt-24 p-6 md:mt-28"> {/* Ajustar el padding superior */}
       <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cartProducts.map((product, index) => (
-          <div key={index} className="border p-4 flex items-center justify-between">
+          <div key={index} className="border p-4 flex items-center justify-between bg-white rounded-lg shadow-md">
             <div className="flex items-center">
               <div style={{ width: '64px', height: '64px', marginRight: '10px' }}>
                 <img src={product.imagen} alt={product.nombreProducto} style={{ width: '100%', height: '100%' }} />

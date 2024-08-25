@@ -1,4 +1,4 @@
-"use client"
+
 import Register from '../../components/register/Register';
 
 const RegisterForm = () => {

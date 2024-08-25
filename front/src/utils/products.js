@@ -9,7 +9,8 @@ const productsToPreLoad = [
     price: 699,
     stock: 10,
     image: 'https://http2.mlstatic.com/D_NQ_NP_809326-MLA46115014340_052021-O.webp',
-    categoryId: 0
+    categoryId: 0,
+    
   },
   {
     id: 2,
@@ -18,7 +19,8 @@ const productsToPreLoad = [
     price: 999,
     stock: 5,
     image: 'https://http2.mlstatic.com/D_NQ_NP_868385-MLA52463970075_112022-O.webp',
-    categoryId: 1
+    categoryId: 1,
+   
   },
   {
     id: 3,

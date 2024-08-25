@@ -9,7 +9,7 @@ const validateUserRegister = (
 ) => {
   const { email, password, name, address, phone } = req.body;
   if (!email || !password || !name || !address || !phone)
-    next(new ClientError("Missing fields"));
+    next(new ClientError("Campos faltantes"));
   else next();
 };
 
@@ -20,7 +20,7 @@ const validateUserExists = async (
 ) => {
   const { email } = req.body;
   if (await checkUserExists(email))
-    next(new ClientError("User already exists", 400));
+    next(new ClientError("El usuario ya existe", 400));
   else next();
 };
 

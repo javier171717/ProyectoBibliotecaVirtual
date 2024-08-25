@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -12,18 +12,74 @@ const Register = () => {
   const [password, setPassword] = useState('');
   const [address, setAddress] = useState('');
   const [phone, setPhone] = useState('');
+  const [errors, setErrors] = useState({
+    name: '',
+    email: '',
+    password: '',
+    address: '',
+    phone: '',
+  });
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validatePassword = (password: string) => {
+    const uppercaseRegex = /[A-Z]/;
+    return uppercaseRegex.test(password);
+  };
+
+  const validatePhone = (phone: string) => {
+    const phoneRegex = /^\d{10}$/;
+    return phoneRegex.test(phone);
+  };
+
+  const handleValidation = () => {
+    const newErrors = {
+      name: '',
+      email: '',
+      password: '',
+      address: '',
+      phone: '',
+    };
+
+    if (!name) {
+      newErrors.name = 'El nombre es obligatorio.';
+    }
+
+    if (!email) {
+      newErrors.email = 'El correo electrónico es obligatorio.';
+    } else if (!validateEmail(email)) {
+      newErrors.email = 'Por favor, ingresa un correo electrónico válido.';
+    }
+
+    if (!password) {
+      newErrors.password = 'La contraseña es obligatoria.';
+    } else if (!validatePassword(password)) {
+      newErrors.password = 'La contraseña debe contener al menos una letra mayúscula.';
+    }
+
+    if (!address) {
+      newErrors.address = 'La dirección es obligatoria.';
+    }
+
+    if (!phone) {
+      newErrors.phone = 'El número de teléfono es obligatorio.';
+    } else if (!validatePhone(phone)) {
+      newErrors.phone = 'El número de teléfono debe tener exactamente 10 dígitos.';
+    }
+
+    setErrors(newErrors);
+
+    // Retorna true si no hay errores
+    return Object.values(newErrors).every((error) => error === '');
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Validar que los campos no estén vacíos
-    if (!name || !email || !password || !address || !phone) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Campos vacíos',
-        text: 'Por favor, completa todos los campos.',
-        confirmButtonText: 'Entendido',
-      });
+    if (!handleValidation()) {
       return;
     }
 
@@ -42,6 +98,8 @@ const Register = () => {
         }),
       });
 
+      const responseData = await response.json();
+
       if (response.ok) {
         Swal.fire({
           icon: 'success',
@@ -54,11 +112,15 @@ const Register = () => {
           setPassword('');
           setAddress('');
           setPhone('');
-          router.push('/login'); // Redirige al usuario a la página de inicio de sesión después del registro
+          router.push('/login');
         });
       } else {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Error en el registro');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al registrar usuario',
+          text: responseData.message || 'Ha ocurrido un error al intentar registrar el usuario. Por favor, inténtalo de nuevo más tarde.',
+          confirmButtonText: 'Entendido',
+        });
       }
     } catch (error) {
       console.error('Error al registrar usuario:', error);
@@ -70,26 +132,27 @@ const Register = () => {
       });
     }
   };
-
   return (
-    <div className="flex items-center justify-center h-full">
-      <div className="w-full max-w-md p-4">
+    <div className="flex items-center justify-center min-h-screen mt-40">
+      <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4 text-center">Registrarse</h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="mb-4">
             <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-              Name
+              Nombre
             </label>
             <input
               type="text"
               id="name"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.name && 'border-red-500'}`}
               placeholder="Nombre"
               required
             />
+            {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
           </div>
+  
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               E-mail
@@ -99,11 +162,13 @@ const Register = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.email && 'border-red-500'}`}
               placeholder="Correo electrónico"
               required
             />
+            {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
           </div>
+  
           <div className="mb-4">
             <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
               Dirección
@@ -113,11 +178,13 @@ const Register = () => {
               id="address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.address && 'border-red-500'}`}
               placeholder="Dirección"
               required
             />
+            {errors.address && <p className="text-red-500 text-xs italic">{errors.address}</p>}
           </div>
+  
           <div className="mb-4">
             <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
               Teléfono
@@ -127,14 +194,16 @@ const Register = () => {
               id="phone"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.phone && 'border-red-500'}`}
               placeholder="Teléfono"
               required
             />
+            {errors.phone && <p className="text-red-500 text-xs italic">{errors.phone}</p>}
           </div>
+  
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
-              Password
+              Contraseña
             </label>
             <input
               type={showPassword ? 'text' : 'password'}
@@ -142,9 +211,10 @@ const Register = () => {
               placeholder="Ingresa tu contraseña"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.password && 'border-red-500'}`}
               required
             />
+            {errors.password && <p className="text-red-500 text-xs italic">{errors.password}</p>}
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -154,7 +224,7 @@ const Register = () => {
               {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
-
+  
           <div className="flex items-center justify-center">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -163,7 +233,7 @@ const Register = () => {
               Registrarse
             </button>
           </div>
-
+  
           <div className="text-center">
             <p className="mt-4 text-sm text-gray-700">
               ¿Ya tienes una cuenta?{' '}
@@ -176,6 +246,7 @@ const Register = () => {
       </div>
     </div>
   );
-};
+  }  
 
 export default Register;
+

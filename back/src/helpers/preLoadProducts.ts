@@ -16,11 +16,12 @@ const productsToPreLoad: IProduct[] = [
     name: "iPhone 11",
   price: 699,
   description:
-    "Experimenta el poder y la elegancia con el iPhone 11: captura momentos impresionantes con su sistema de cámara dual, disfruta de un rendimiento excepcional y sumérgete en una brillante pantalla Liquid Retina. Descubre un mundo de posibilidades en la palma de tu mano.",
+    "Experimenta el poder y la elegancia con el iPhone 11: captura momentos impresionantes con su sistema de cámara dual, disfruta de un rendimiento excepcional",
   image: 'https://http2.mlstatic.com/D_NQ_NP_809326-MLA46115014340_052021-O.webp',
   categoryId: 1,
   stock: 10,
 },
+
 {
   name: "MacBook Air",
   price: 999,
@@ -30,6 +31,7 @@ const productsToPreLoad: IProduct[] = [
   categoryId: 2,
   stock: 10,
 },
+
 {
   name: "iPad Pro",
   price: 799,
@@ -39,6 +41,7 @@ const productsToPreLoad: IProduct[] = [
   categoryId: 3,
   stock: 10,
 },
+
 {
   name: "Apple Watch Series 6",
   price: 399,
@@ -48,6 +51,7 @@ const productsToPreLoad: IProduct[] = [
   categoryId: 4,
   stock: 10,
 },
+
 {
   name: "AirPods Pro",
   price: 249,
@@ -57,6 +61,7 @@ const productsToPreLoad: IProduct[] = [
   categoryId: 5,
   stock: 10,
 },
+
 {
   name: "HomePod mini",
   price: 99,
@@ -66,6 +71,7 @@ const productsToPreLoad: IProduct[] = [
   categoryId: 6,
   stock: 10,
   },
+  
 ];
 
 export const preLoadProducts = async () => {

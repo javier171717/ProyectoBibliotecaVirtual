@@ -1,4 +1,4 @@
-"use client"
+
 import Home from "@/components/home/Home";
 
 

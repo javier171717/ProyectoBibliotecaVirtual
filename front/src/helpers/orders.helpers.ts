@@ -1,4 +1,4 @@
-// orders.helpers.ts
+
 export const getOrders = async (userId: number) => {
     try {
       const response = await fetch(`/orders?userId=${userId}`);
