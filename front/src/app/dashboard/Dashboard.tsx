@@ -14,7 +14,7 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto mt-40 p-6 md:mt-48 min-h-screen flex flex-col">
-      <h1 className="text-2xl font-bold mb-4">Mis Datos:</h1>
+      <h1 className="text-2xl font-bold mb-4">Mis Datos</h1>
       {userData ? (
         <div className="p-4 bg-white rounded-lg shadow-md">
           <p className="text-gray-800 mb-2">Bienvenido, {userData.name}!</p>

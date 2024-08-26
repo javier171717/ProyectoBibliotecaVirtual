@@ -67,7 +67,7 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
         icon: 'info',
         title: 'Producto ya en el carrito',
         text: 'Este producto ya ha sido agregado al carrito.',
-        showConfirmButton: false,
+        showConfirmButton: true,
         timer: 1500,
       });
       return;

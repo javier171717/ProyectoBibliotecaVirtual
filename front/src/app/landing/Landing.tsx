@@ -14,7 +14,7 @@ const Landing = () => {
       try {
         const products: IProduct[] = [
           { id: 1, name: 'iPhone 11', description: '', price: 699, stock: 5, image: 'https://http2.mlstatic.com/D_NQ_NP_809326-MLA46115014340_052021-O.webp', categoryId: 1, isOnSale: true },
-          { id: 2, name: 'MacBook Air', description: '', price: 999, stock: 10, image:'https://http2.mlstatic.com/D_NQ_NP_868385-MLA52463970075_112022-O.webp', categoryId: 1, isOnSale: false },
+          { id: 2, name: 'MacBook Air', description: '', price: 999, stock: 10, image:'https://http2.mlstatic.com/D_NQ_NP_868385-MLA52463970075_112022-O.webp', categoryId: 1, isOnSale: true },
           { id: 3, name: 'iPad Pro', description: '', price: 799, stock: 3, image: 'https://http2.mlstatic.com/D_NQ_NP_814559-MLA53970921150_022023-O.webp',categoryId: 1, isOnSale: true },
           { id: 4, name: 'Apple Watch Series 6', description: '', price: 399, stock: 10, image:  'https://http2.mlstatic.com/D_NQ_NP_733580-MLA72063241888_102023-O.webp',categoryId: 1, isOnSale: false },
           { id: 5, name: 'AirPods Pro', description: '', price: 249, stock: 6, image: 'https://http2.mlstatic.com/D_NQ_NP_606698-MLU74678792835_022024-O.webp', categoryId: 1, isOnSale: false },
@@ -42,7 +42,7 @@ const Landing = () => {
   return (
     <div className="p-6 mt-40"> 
       <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-8 rounded-lg shadow-lg mb-8">
-        <h1 className="text-4xl font-bold mb-2">¡Ofertas Especiales en Electrónica!</h1>
+        <h1 className="text-4xl font-bold mb-2">¡Ofertas Especiales En Electrónica!</h1>
         <p className="text-lg">Descuentos increíbles en celulares, tabletas y computadoras. ¡Aprovecha antes de que se acaben!</p>
       </div>
 

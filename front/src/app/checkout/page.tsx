@@ -84,7 +84,7 @@ const CheckoutPage = () => {
   };
 
   return (
-    <div className="container mx-auto mt-24 p-6 md:mt-28"> {/* Ajustar el padding superior */}
+    <div className="container mx-auto mt-24 p-6 md:mt-40"> {/* Ajustar el padding superior */}
       <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cartProducts.map((product, index) => (
