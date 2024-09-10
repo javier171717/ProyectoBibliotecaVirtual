@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -20,68 +20,31 @@ const Register = () => {
     phone: '',
   });
 
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
-  const validatePassword = (password: string) => {
-    const uppercaseRegex = /[A-Z]/;
-    return uppercaseRegex.test(password);
-  };
-
-  const validatePhone = (phone: string) => {
-    const phoneRegex = /^\d{10}$/;
-    return phoneRegex.test(phone);
-  };
+  // Validaciones
+  const validateName = (name: string) => /^[A-Za-z\s]{1,30}$/.test(name);
+  const validateEmail = (email: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+  const validatePassword = (password: string) =>
+    /(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,}/.test(password);
+  const validatePhone = (phone: string) => /^\d{10}$/.test(phone);
 
   const handleValidation = () => {
     const newErrors = {
-      name: '',
-      email: '',
-      password: '',
-      address: '',
-      phone: '',
+      name: validateName(name) ? '' : 'El nombre no es válido o excede 30 caracteres.',
+      email: validateEmail(email) ? '' : 'Por favor, ingresa un correo electrónico válido.',
+      password: validatePassword(password)
+        ? ''
+        : 'La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un carácter especial.',
+      address: address ? '' : 'La dirección es obligatoria.',
+      phone: validatePhone(phone) ? '' : 'El número de teléfono debe tener exactamente 10 dígitos.',
     };
 
-    if (!name) {
-      newErrors.name = 'El nombre es obligatorio.';
-    }
-
-    if (!email) {
-      newErrors.email = 'El correo electrónico es obligatorio.';
-    } else if (!validateEmail(email)) {
-      newErrors.email = 'Por favor, ingresa un correo electrónico válido.';
-    }
-
-    if (!password) {
-      newErrors.password = 'La contraseña es obligatoria.';
-    } else if (!validatePassword(password)) {
-      newErrors.password = 'La contraseña debe contener al menos una letra mayúscula.';
-    }
-
-    if (!address) {
-      newErrors.address = 'La dirección es obligatoria.';
-    }
-
-    if (!phone) {
-      newErrors.phone = 'El número de teléfono es obligatorio.';
-    } else if (!validatePhone(phone)) {
-      newErrors.phone = 'El número de teléfono debe tener exactamente 10 dígitos.';
-    }
-
     setErrors(newErrors);
-
-    // Retorna true si no hay errores
     return Object.values(newErrors).every((error) => error === '');
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    if (!handleValidation()) {
-      return;
-    }
+    if (!handleValidation()) return;
 
     try {
       const response = await fetch('http://localhost:3001/users/register', {
@@ -104,8 +67,7 @@ const Register = () => {
         Swal.fire({
           icon: 'success',
           title: 'Registro exitoso',
-          text: '¡Registro exitoso! Serás redirigido a la página de inicio de sesión.',
-          confirmButtonText: 'Entendido',
+          text: 'Serás redirigido a la página de inicio de sesión.',
         }).then(() => {
           setName('');
           setEmail('');
@@ -118,8 +80,7 @@ const Register = () => {
         Swal.fire({
           icon: 'error',
           title: 'Error al registrar usuario',
-          text: responseData.message || 'Ha ocurrido un error al intentar registrar el usuario. Por favor, inténtalo de nuevo más tarde.',
-          confirmButtonText: 'Entendido',
+          text: responseData.message || 'Ha ocurrido un error al intentar registrar el usuario.',
         });
       }
     } catch (error) {
@@ -127,11 +88,11 @@ const Register = () => {
       Swal.fire({
         icon: 'error',
         title: 'Error al registrar usuario',
-        text: 'Ha ocurrido un error al intentar registrar el usuario. Por favor, inténtalo de nuevo más tarde.',
-        confirmButtonText: 'Entendido',
+        text: 'Error en el servidor. Por favor, inténtalo más tarde.',
       });
     }
   };
+
   return (
     <div className="flex items-center justify-center min-h-screen mt-40">
       <div className="w-full max-w-md p-4 bg-white rounded-lg shadow-lg">
@@ -152,7 +113,7 @@ const Register = () => {
             />
             {errors.name && <p className="text-red-500 text-xs italic">{errors.name}</p>}
           </div>
-  
+
           <div className="mb-4">
             <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
               E-mail
@@ -168,7 +129,7 @@ const Register = () => {
             />
             {errors.email && <p className="text-red-500 text-xs italic">{errors.email}</p>}
           </div>
-  
+
           <div className="mb-4">
             <label htmlFor="address" className="block text-gray-700 font-bold mb-2">
               Dirección
@@ -184,7 +145,7 @@ const Register = () => {
             />
             {errors.address && <p className="text-red-500 text-xs italic">{errors.address}</p>}
           </div>
-  
+
           <div className="mb-4">
             <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
               Teléfono
@@ -200,7 +161,7 @@ const Register = () => {
             />
             {errors.phone && <p className="text-red-500 text-xs italic">{errors.phone}</p>}
           </div>
-  
+
           <div className="mb-6">
             <label htmlFor="password" className="block text-gray-700 font-bold mb-2">
               Contraseña
@@ -218,13 +179,13 @@ const Register = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
               className="bg-gray-200 hover:bg-gray-300 rounded p-1 ml-2"
+              aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
             >
               {showPassword ? '🙈' : '👁️'}
             </button>
           </div>
-  
+
           <div className="flex items-center justify-center">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
@@ -233,7 +194,7 @@ const Register = () => {
               Registrarse
             </button>
           </div>
-  
+
           <div className="text-center">
             <p className="mt-4 text-sm text-gray-700">
               ¿Ya tienes una cuenta?{' '}
@@ -246,7 +207,8 @@ const Register = () => {
       </div>
     </div>
   );
-  }  
+};
 
 export default Register;
+
 

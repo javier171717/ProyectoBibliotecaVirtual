@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -40,10 +40,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-10 flex flex-col items-center justify-between px-10 py-2 bg-blue-500"> {/* Cambiado py-4 a py-2 */}
+    <nav className="fixed top-0 left-0 w-full z-10 flex flex-col items-center justify-between px-10 py-2 bg-blue-500">
       <div className="w-full flex flex-row justify-between items-center">
         <Link href="/">
-          <Image src="/images/Logo.png" alt="Logo" width={80} height={80} className="cursor-pointer" />
+        <Image src="/images/Logo.png" alt="Logo" width={40} height={40} className="cursor-pointer rounded-full" />
         </Link>
        
         {isLoggedIn ? (
@@ -71,7 +71,6 @@ const Navbar = () => {
           <FontAwesomeIcon icon={faBars} />
         </div>
       </div>
-
       <div className={`flex flex-col md:flex-row justify-center items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
         <Link href="/" className="text-black mb-2 md:mb-0 md:mr-4">Productos</Link>
         <Link href="/landing" className="text-black mb-2 md:mb-0 md:mr-4">Ofertas Especiales</Link>
@@ -82,12 +81,19 @@ const Navbar = () => {
 
       <div className="cursor-pointer text-black text-2xl" onClick={handleCartClick}>
         <FontAwesomeIcon icon={faShoppingCart} />
+        <div className="flex items-center">  
+        </div> 
       </div>
     </nav>
   );
 };
 
+
+
 export default Navbar;
+
+
+
 
 
 

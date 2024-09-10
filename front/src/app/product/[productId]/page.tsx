@@ -1,5 +1,6 @@
 
 "use client"
+
 import { useEffect, useState } from "react";
 import { useRouter } from 'next/navigation'; 
 import { getProductById } from "@/helpers/product.helpers";
@@ -45,10 +46,10 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
       return;
     }
   
-    // Obtener el carrito del usuario (simulación)
+  
     const cartProducts: { id: number; nombreProducto: string; precio: number; imagen: string }[] = JSON.parse(localStorage.getItem('cartProducts') || '[]');
   
-    // Verificar si el producto ya está en el carrito
+    
     if (!product) {
       Swal.fire({
         icon: 'error',
@@ -73,7 +74,6 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
       return;
     }
   
-    // Agregar el nuevo producto al carrito
     const newProduct = {
       id: product.id,
       nombreProducto: product.name || '',
@@ -83,7 +83,6 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
     cartProducts.push(newProduct);
     localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
   
-    // Redirigir al usuario a la página de compras
     router.push('/compra');
   
     Swal.fire({
