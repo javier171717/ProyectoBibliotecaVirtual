@@ -18,6 +18,25 @@ const Contact = () => {
       return;
     }
 
+    // Validación del nombre (máximo 30 caracteres)
+    if (name.length > 30) {
+      setError('El nombre no debe superar los 30 caracteres');
+      return;
+    }
+
+    // Validación del email usando una expresión regular simple
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setError('Por favor, ingresa un correo electrónico válido');
+      return;
+    }
+
+    // Validación del mensaje (máximo 100 caracteres)
+    if (message.length > 100) {
+      setError('El mensaje no debe superar los 100 caracteres');
+      return;
+    }
+
     // Aquí puedes agregar la lógica para enviar el formulario de contacto
     console.log('Name:', name);
     console.log('Email:', email);
@@ -28,6 +47,7 @@ const Contact = () => {
     setName('');
     setEmail('');
     setMessage('');
+    setError('');
     router.push('/');
   };
 
@@ -93,3 +113,4 @@ const Contact = () => {
 };
 
 export default Contact;
+

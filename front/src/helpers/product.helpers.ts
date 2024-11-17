@@ -7,7 +7,7 @@ export async function getProductsDB() {
     try {
         const res = await fetch(`${apiUrl}/products`, {
             method: "GET",
-            next: {revalidate: 3600}
+           cache : 'no-cache',
             
         
         });

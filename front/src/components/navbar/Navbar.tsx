@@ -36,7 +36,7 @@ const Navbar = () => {
     localStorage.removeItem('cartProducts');
     
     setIsLoggedIn(false);
-    setUsername(''); // Limpiar el nombre del usuario
+    setUsername(''); 
   };
 
   return (
@@ -45,7 +45,6 @@ const Navbar = () => {
         <Link href="/">
         <Image src="/images/Logo.png" alt="Logo" width={40} height={40} className="cursor-pointer rounded-full" />
         </Link>
-       
         {isLoggedIn ? (
           <div className="flex items-center">
             <span className="text-white mr-4">
@@ -74,7 +73,7 @@ const Navbar = () => {
       <div className={`flex flex-col md:flex-row justify-center items-center md:w-full transition-transform duration-300 md:transform ${isMenuOpen ? 'translate-y-0' : '-translate-y-full'}`}>
         <Link href="/" className="text-black mb-2 md:mb-0 md:mr-4">Productos</Link>
         <Link href="/landing" className="text-black mb-2 md:mb-0 md:mr-4">Ofertas Especiales</Link>
-        <Link href="/contacto" className="text-black mb-2 md:mb-0 md:mr-4">Cont@cto</Link>
+        <Link href="/contacto" className="text-black mb-2 md:mb-0 md:mr-4">Contacto</Link>
         <Link href="/orders" className="text-black mb-2 md:mb-0 md:mr-4">Ordenes</Link>
         <Link href="/dashboard" className="text-black mb-2 md:mb-0 md:mr-4">Mi Cuenta</Link>
       </div>
