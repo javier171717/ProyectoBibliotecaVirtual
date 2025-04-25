@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 interface Compra {
   id: number;
   nombreProducto: string;
-  precio: number;
+  //precio: number;
   imagen: string;
 }
 
@@ -39,7 +39,7 @@ const Compras = () => {
 
   return (
     <div className="pt-24 p-6 md:pt-28"> {/* Ajustar el padding superior */}
-      <h1 className="text-2xl font-bold mb-4">Este producto está en oferta...!</h1>
+      <h1 className="text-2xl font-bold mb-4">Tus libros favoritos...!</h1>
       {compras.length > 0 ? (
         <div className="space-y-4">
           <ul className="space-y-4">
@@ -48,7 +48,7 @@ const Compras = () => {
                 <img src={compra.imagen} alt={compra.nombreProducto} width={50} height={50} className="mr-4" />
                 <div>
                   <p className="text-gray-800 font-medium">{compra.nombreProducto}</p>
-                  <p className="text-gray-600">${compra.precio}</p>
+                 {/*  <p className="text-gray-600">{compra.precio}</p> */}
                 </div>
               </li>
             ))}
@@ -57,11 +57,11 @@ const Compras = () => {
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
             onClick={handleCheckout}
           >
-            Verifica tu pedido!..
+            Verifica tu reserva!..
           </button>
         </div>
       ) : (
-        <p>No se han agregado productos al carrito aún.</p>
+        <p>Aun no tienes reservas de libros.</p>
       )}
     </div>
   );

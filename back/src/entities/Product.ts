@@ -19,12 +19,12 @@ export class Product {
 
   @Column()
   description: string;
-
+/* 
   @Column()
-  price: number;
+  price: number; */
 
-  @Column()
-  stock: number;
+ /*  @Column()
+  stock: number; */
 
   @Column()
   image: string;

@@ -1,6 +1,7 @@
-//Codigo que muestra un solo producto
+
+//getProductById
  
- /* import Cards from '@/components/cards/Cards';
+/*   import Cards from '@/components/cards/Cards';
 import { getProductById } from '@/helpers/product.helpers';
 
 const page = async() => {
@@ -13,15 +14,15 @@ const page = async() => {
   )
 }
 
-export default page  
+export default page   */
 
- */
-
-// codigo que rederiza un texto si el usuario esta logeado 
+ 
 
 
 
-/* 'use client'
+// ProtectedPage
+
+  'use client'
 
 import { useEffect, useState } from 'react';
 
@@ -46,28 +47,30 @@ const ProtectedPage = () => {
   );
 };
 
-export default ProtectedPage; */
-
+export default ProtectedPage;   
+ 
 
 
 
 
  
+//button
 
-
-/* {isLoggedIn && (
+/*{isLoggedIn && (
   <button 
-  onClick={() => window.location.href = '/'} 
+  onClick={() => window.location.href = '/dashboard'} 
   className="bg-orange-500 text-white py-2 px-4 rounded"
   >
   Enviar
   </button>
-  )} 
- */
+  )}    
+    
+  */
 
 
-  //codigo que de una pagina que te deja ingresar solo si el usuario esta logueado
-   "use client"
+  //ProtectedPage
+
+     /* "use client"
 
   import { useEffect } from 'react';
   import { useRouter } from 'next/navigation';
@@ -76,11 +79,8 @@ export default ProtectedPage; */
     const router = useRouter();
   
     useEffect(() => {
-      // Verificar si hay un token en localStorage
       const token = localStorage.getItem('token');
-  
       if (!token) {
-        // Si no hay token, redirigir al login
         router.push('/login');
       }
     }, []);
@@ -93,7 +93,7 @@ export default ProtectedPage; */
     );
   };
   
-  export default ProtectedPage;
+  export default ProtectedPage; */
    
-
  
+  

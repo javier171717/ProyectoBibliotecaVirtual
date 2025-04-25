@@ -36,21 +36,21 @@ const Landing = () => {
     fetchProducts();
   }, []);
 
-  if (loading) return <div className="text-center">Cargando productos...</div>;
+  if (loading) return <div className="text-center">Cargando libros...</div>;
   if (error) return <div className="text-center text-red-600">{error}</div>;
 
   return (
     <div className="p-6 mt-40"> 
       <div className="bg-gradient-to-r from-purple-500 to-blue-500 text-white p-8 rounded-lg shadow-lg mb-8">
-        <h1 className="text-4xl font-bold mb-2">¡Ofertas Especiales En Electrónica!</h1>
-        <p className="text-lg">Descuentos increíbles en celulares, tabletas y computadoras. ¡Aprovecha antes de que se acaben!</p>
+        <h1 className="text-4xl font-bold mb-2">¡Libros mas consultados!</h1>
+        {/* <p className="text-lg">Descuentos increíbles en celulares, tabletas y computadoras. ¡Aprovecha antes de que se acaben!</p> */}
       </div>
   
       <div className="flex flex-wrap justify-center gap-6">
         {saleProducts.length > 0 ? (
           <Cards products={saleProducts} />
         ) : (
-          <div className="text-center">No hay productos en oferta actualmente.</div>
+          <div className="text-center">No hay libros en oferta actualmente.</div>
         )}
       </div>
   

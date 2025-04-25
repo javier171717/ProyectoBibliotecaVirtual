@@ -8,9 +8,9 @@ const Footer = () => {
     <footer className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 text-white py-6 text-center shadow-lg">
   <div className="max-w-7xl mx-auto px-4">
     <p className="text-lg font-semibold">
-      Todos los derechos reservados &copy; 2024
+      Todos los derechos reservados &copy; 2025
     </p>
-    <p className="mt-1 text-lg">Javier Jimenez S</p>
+    <p className="mt-1 text-lg">Uniremington</p>
     <div className="mt-4 flex justify-center space-x-6">
       <a href="https://www.facebook.com" className="text-2xl transition-colors duration-300 hover:text-blue-500">
         <FontAwesomeIcon icon={faFacebookF} />

@@ -21,7 +21,7 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
         const fetchedProduct = await getProductById(params.productId);
         setProduct(fetchedProduct);
       } catch (error) {
-        console.error('Error al obtener el producto:', error);
+        console.error('Error al obtener un libro:', error);
       }
     };
 
@@ -33,7 +33,7 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
       Swal.fire({
         icon: 'warning',
         title: '¡Debes iniciar sesión!',
-        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        text: 'Debes iniciar sesión para reservar un libro.',
         showCancelButton: true,
         confirmButtonText: 'Iniciar sesión',
         cancelButtonText: 'Cancelar',
@@ -54,7 +54,7 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'El producto no existe.',
+        text: 'El libro no existe.',
         showConfirmButton: false,
         timer: 1500,
       });
@@ -63,16 +63,16 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
   
     const productExists = cartProducts.some((item: { id: number }) => item.id === product.id);
   
-    if (productExists) {
+     if (productExists) {
       Swal.fire({
         icon: 'info',
-        title: 'Producto ya en el carrito',
-        text: 'Este producto ya ha sido agregado al carrito.',
+        title: 'Este libro ya esta reservado',
+        text: 'Este libro ya ha sido reservado.',
         showConfirmButton: true,
         timer: 1500,
       });
       return;
-    }
+    } 
   
     const newProduct = {
       id: product.id,
@@ -87,7 +87,7 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
   
     Swal.fire({
       icon: 'success',
-      title: '¡Producto agregado al carrito!',
+      title: '¡Tu reserva fue exitosa!',
       showConfirmButton: false,
       timer: 1500,
     });
@@ -105,13 +105,13 @@ const DetailProduct = ({ params }: { params: { productId: string } }) => {
         <h2>{product.name}</h2>
         <img src={product.image} alt="imagen del producto" width={100} height={100} className="mx-auto" />
         <p>{product.description}</p>
-        <p>Price: $ {product.price}</p>
-        <p>Stock: {product.stock}</p>
+    {/*     <p>Price: $ {product.price}</p> */}
+        {/* <p>Stock: {product.stock}</p> */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           onClick={handleBuy}
         >
-          Agregar al carrito
+          Reservar
         </button>
       </div>
     </div>

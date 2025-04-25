@@ -7,8 +7,8 @@ interface CartProduct {
   id: number;
   nombreProducto: string;
   description: string;
-  precio: number;
-  stock: number;
+  //precio: number;
+  //stock: number;
   imagen: string;
   categoryId: number;
 }
@@ -22,8 +22,8 @@ const CheckoutPage = () => {
     const storedCartProducts = JSON.parse(localStorage.getItem('cartProducts') || '[]') as CartProduct[];
     setCartProducts(storedCartProducts);
 
-    const total = storedCartProducts.reduce((acc, product) => acc + product.precio, 0);
-    setTotalPrecio(total);
+    /* const total = storedCartProducts.reduce((acc, product) => acc + product.precio, 0);
+    setTotalPrecio(total); */
   }, []);
 
   const handleRemoveProduct = (productId: number) => {
@@ -31,14 +31,14 @@ const CheckoutPage = () => {
     setCartProducts(updatedCart);
     localStorage.setItem('cartProducts', JSON.stringify(updatedCart));
 
-    const total = updatedCart.reduce((acc, product) => acc + product.precio, 0);
-    setTotalPrecio(total);
+    /* const total = updatedCart.reduce((acc, product) => acc + product.precio, 0);
+    setTotalPrecio(total); */
 
     if (updatedCart.length === 0) {
       Swal.fire({
         icon: 'info',
-        title: 'El carrito está vacío',
-        text: 'Agrega productos al carrito para continuar con la compra.',
+        title: 'No hay reservas',
+        text: 'Reserva tus libros .',
         showConfirmButton: true,
       }).then(() => {
         router.push('/');
@@ -51,7 +51,7 @@ const CheckoutPage = () => {
       Swal.fire({
         icon: 'error',
         title: 'Error',
-        text: 'No puedes confirmar la compra con el carrito vacío. Agrega productos al carrito para continuar.',
+        text: 'No puedes confirmar la reserva. Escoge tu libro favorito para continuar.',
         showConfirmButton: true,
       });
     } else {
@@ -63,7 +63,7 @@ const CheckoutPage = () => {
         products: cartProducts.map(product => ({
           id: product.id,
           name: product.nombreProducto,
-          price: product.precio,
+         /*  price: product.precio, */
         })),
       };
       storedOrders.push(newOrder);
@@ -71,8 +71,8 @@ const CheckoutPage = () => {
 
       Swal.fire({
         icon: 'success',
-        title: '¡Compra realizada con éxito!',
-        text: 'Gracias por su compra. Recibirá un correo de confirmación.',
+        title: '¡Reserva realizada con éxito!',
+        text: 'Gracias por su reserva. Recibirá un correo de confirmación.',
         showConfirmButton: true,
       }).then(() => {
         setCartProducts([]);
@@ -85,7 +85,7 @@ const CheckoutPage = () => {
 
   return (
     <div className="container mx-auto mt-24 p-6 md:mt-40"> {/* Ajustar el padding superior */}
-      <h1 className="text-3xl font-semibold mb-4">Checkout</h1>
+      <h1 className="text-3xl font-semibold mb-4">Reserva</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {cartProducts.map((product, index) => (
           <div key={index} className="border p-4 flex items-center justify-between bg-white rounded-lg shadow-md">
@@ -96,7 +96,7 @@ const CheckoutPage = () => {
               <div>
                 <h2 className="text-lg font-semibold">{product.nombreProducto}</h2>
                 <p>{product.description}</p>
-                <p>Precio: ${product.precio}</p>
+                {/* <p>Precio: ${product.precio}</p> */}
               </div>
             </div>
             <button
@@ -109,12 +109,12 @@ const CheckoutPage = () => {
         ))}
       </div>
       <div className="mt-4">
-        <p className="text-lg font-semibold">Total a pagar: ${totalPrecio}</p>
+       {/*  <p className="text-lg font-semibold">Total a pagar: ${totalPrecio}</p> */}
         <button
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4"
           onClick={handleCheckout}
         >
-          Confirmar compra
+          Confirmar reserva
         </button>
       </div>
     </div>
